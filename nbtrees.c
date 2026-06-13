@@ -185,14 +185,67 @@ void PrintTree(Tree T)
 /****************************************************/
 /*                MODUL STUDI KASUS                   */
 /****************************************************/
+address SearchPewaris(Tree T, const char* namaTarget) {
+}
 
-address SearchPewaris(Tree T, char namaTarget[]){}
-/* Mengembalikan address node jika ditemukan, NULL jika tidak ditemukan */
+static void TanyaStatus(address node) {
+    if (node == NULL) return;
+    int inputStatus;
+    printf("Apakah %s masih hidup? (1 = hidup, 0 = wafat): ", node->info.Nama);
+    if (scanf("%d", &inputStatus) == 1) {
+        node->info.Hidup = (inputStatus == 1);
+        node->info.Aktif = true; 
+    } else {
+        printf("Input tidak valid. Default ke wafat.\n");
+        node->info.Hidup = false;
+        node->info.Aktif = false;
+    }
+}
 
+void AktivasiDanInput(address pewaris) {
+    if (pewaris == NULL) return;
 
+    pewaris->info.Hidup = false;
+    pewaris->info.Aktif = true; 
 
-void AktivasiDanInput(address pewaris){
+    /* 1. Atas (Ayah & Kakek) */
+    if (pewaris->ps_pr != NULL) {
+        address ayah = pewaris->ps_pr;
+        TanyaStatus(ayah);
+        if (ayah->ps_pr != NULL) {
+            address kakek = ayah->ps_pr;
+            TanyaStatus(kakek);
+        }
+    }
 
+    /* 2. Bawah (Anak & Cucu) */
+    address anak = pewaris->ps_fs;
+    while (anak != NULL) {
+        TanyaStatus(anak);
+        address cucu = anak->ps_fs;
+        while (cucu != NULL) {
+            TanyaStatus(cucu);
+            cucu = cucu->ps_nb; 
+        }
+        anak = anak->ps_nb; 
+    }
+
+    /* 3. Samping (Saudara Kandung) */
+    if (pewaris->ps_pr != NULL) {
+        address saudara = pewaris->ps_pr->ps_fs;
+        while (saudara != NULL) {
+            if (saudara != pewaris) TanyaStatus(saudara);
+            saudara = saudara->ps_nb; 
+        }
+    }
+
+    /* 4. Pasangan */
+    if (pewaris->info.Pasangan == true) {
+        int statusPasangan;
+        printf("Apakah pasangan %s masih hidup? (1/0): ", pewaris->info.Nama);
+        if (scanf("%d", &statusPasangan) == 1) {
+        }
+    }
 }
 void CekHijabMahjub(address pewaris){
 
