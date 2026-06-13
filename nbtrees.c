@@ -21,10 +21,7 @@ address Alokasi(infotype X)
     address p = (address)malloc(sizeof(Node));
     if (p != NULL)
     {
-        p->info = X;
-        p->ps_fs = NULL;
-        p->ps_nb = NULL;
-        p->ps_pr = NULL;
+       
     }
     return p;
 }
@@ -186,19 +183,24 @@ void PrintTree(Tree T)
 }
 
 /****************************************************/
-/*                MODUL PENCARIAN                   */
+/*                MODUL STUDI KASUS                   */
 /****************************************************/
 
-int Search(Tree T, infotype X)
-/* Mengembalikan 1 jika X ditemukan, 0 jika tidak */
-{
-    if (T == NULL)
-        return 0;
-    if (T->info == X)
-        return 1;
-    /* Cari di anak-anak, lalu di saudara */
-    return Search(T->ps_fs, X) || Search(T->ps_nb, X);
+address SearchPewaris(Tree T, char namaTarget[]){}
+/* Mengembalikan address node jika ditemukan, NULL jika tidak ditemukan */
+
+
+
+void AktivasiDanInput(address pewaris){
+
 }
+void CekHijabMahjub(address pewaris){
+
+}
+void KalkulasiWarisan(address pewaris, float totalHarta){
+
+}
+
 
 /****************************************************/
 /*                MODUL ANALISIS TREE               */
@@ -236,7 +238,7 @@ int Level(Tree T, infotype X)
 {
     if (T == NULL)
         return -1;
-    if (T->info == X)
+    if (strcmp(T->info.Nama, X.Nama) == 0)
         return 1;
 
     /* Cari di anak-anak (level bertambah 1) */
