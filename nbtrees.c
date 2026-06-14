@@ -186,6 +186,13 @@ void PrintTree(Tree T)
 /*                MODUL STUDI KASUS                   */
 /****************************************************/
 address SearchPewaris(Tree T, const char* namaTarget) {
+    if (T == NULL) return NULL;
+    if (strcmp(T->info.Nama, namaTarget) == 0) return T;
+
+    address found = SearchPewaris(T->ps_fs, namaTarget);
+    if (found != NULL) return found;
+    
+    return SearchPewaris(T->ps_nb, namaTarget);
 }
 
 static void TanyaStatus(address node) {
@@ -208,7 +215,7 @@ void AktivasiDanInput(address pewaris) {
     pewaris->info.Hidup = false;
     pewaris->info.Aktif = true; 
 
-    /* 1. Atas (Ayah & Kakek) */
+    /* (Ayah & Kakek) */
     if (pewaris->ps_pr != NULL) {
         address ayah = pewaris->ps_pr;
         TanyaStatus(ayah);
@@ -218,7 +225,7 @@ void AktivasiDanInput(address pewaris) {
         }
     }
 
-    /* 2. Bawah (Anak & Cucu) */
+    /* (Anak & Cucu) */
     address anak = pewaris->ps_fs;
     while (anak != NULL) {
         TanyaStatus(anak);
@@ -230,7 +237,7 @@ void AktivasiDanInput(address pewaris) {
         anak = anak->ps_nb; 
     }
 
-    /* 3. Samping (Saudara Kandung) */
+    /* (Saudara Kandung) */
     if (pewaris->ps_pr != NULL) {
         address saudara = pewaris->ps_pr->ps_fs;
         while (saudara != NULL) {
@@ -239,7 +246,7 @@ void AktivasiDanInput(address pewaris) {
         }
     }
 
-    /* 4. Pasangan */
+    /* Pasangan */
     if (pewaris->info.Pasangan == true) {
         int statusPasangan;
         printf("Apakah pasangan %s masih hidup? (1/0): ", pewaris->info.Nama);
