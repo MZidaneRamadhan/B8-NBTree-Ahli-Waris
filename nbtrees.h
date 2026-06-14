@@ -11,7 +11,7 @@
 #define false 0
 
 /* Tipe data untuk menyimpan informasi dalam node */
-typedef char infotype;
+// typedef char infotype;
 
 /* Tipe address adalah pointer ke Node */
 typedef struct tNode *address;
@@ -57,7 +57,9 @@ void Create_tree(Tree *T);
 address Alokasi(infotype X);
 /* Mengembalikan address node baru */
 /* Jika gagal, mengembalikan NULL */
-
+infotype MakeInfo(const char *nama, bool gender, bool pasangan);
+address MakeNode(infotype X);
+/* Membuat node baru dengan nilai X */
 /****************************************************/
 /*                MODUL VALIDASI                     */
 /****************************************************/
@@ -104,7 +106,7 @@ void PrintTree(Tree T);
 /****************************************************/
 
 /* Mencari node dengan nilai X */
-address SearchPewaris(Tree T, char namaTarget[]);
+address SearchPewaris(Tree T, const char *namaTarget);
 /* Mengembalikan address node jika ditemukan, NULL jika tidak */
 void AktivasiDanInput(address pewaris);
 void CekHijabMahjub(address pewaris);
