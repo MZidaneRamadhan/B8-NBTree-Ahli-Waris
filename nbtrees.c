@@ -1,280 +1,417 @@
-#include "boolean.h"
-#include "nbtrees.h"
 #include <stdio.h>
-#include <stdlib.h>
+#include "nbtrees.h"
 
-/****************************************************/
-/*                MODUL KONSTRUKTOR                  */
-/****************************************************/
-
-void Create_tree(Tree *T)
-/* I.S. T sembarang */
-/* F.S. T menjadi tree kosong */
+Tree BangunSilsilah(void)
 {
-    *T = NULL;
+    /* ================================================================
+     * GENERASI 0: ROOT
+     * ================================================================ */
+    address abdulMuthalib = MakeNode(MakeInfo("Abdul Muthalib", true, true));
+
+    /* ================================================================
+     * GENERASI 1: Putra-putri Abdul Muthalib
+     * ================================================================ */
+    address abdullah = MakeNode(MakeInfo("Abdullah", true, true));
+    address abuThalib = MakeNode(MakeInfo("Abu Thalib", true, true));
+    address alAbbas = MakeNode(MakeInfo("Al-Abbas", true, true));
+    address hamzah = MakeNode(MakeInfo("Hamzah", true, true));
+    address alHarits = MakeNode(MakeInfo("Al-Harits", true, true));
+    address abuLahab = MakeNode(MakeInfo("Abu Lahab", true, true));
+    address azZubair = MakeNode(MakeInfo("Az-Zubair", true, true));
+    address shafiyyah = MakeNode(MakeInfo("Shafiyyah", false, true));
+    address ummuHakim = MakeNode(MakeInfo("Ummu Hakim Al-Baidha", false, true));
+
+    /* ================================================================
+     * GENERASI 2: Anak dari masing-masing G1
+     * ================================================================ */
+
+    /* -- Anak Abdullah -- */
+    address nabi = MakeNode(MakeInfo("Muhammad SAW", true, true));
+
+    /* -- Anak Abu Thalib -- */
+    address thalib = MakeNode(MakeInfo("Thalib", true, false));
+    address aqil = MakeNode(MakeInfo("Aqil", true, false));
+    address jafar = MakeNode(MakeInfo("Ja'far", true, true));
+    address aliBinAbiThalib = MakeNode(MakeInfo("Ali bin Abi Thalib", true, true));
+
+    /* -- Anak Al-Abbas -- */
+    address alFadhl = MakeNode(MakeInfo("Al-Fadhl", true, false));
+    address abdullahBinAbbas = MakeNode(MakeInfo("Abdullah bin Abbas", true, false));
+    address qutsam = MakeNode(MakeInfo("Qutsam", true, false));
+    address maabad = MakeNode(MakeInfo("Ma'bad", true, false));
+
+    /* -- Anak Hamzah -- */
+    address umamahBintiHamzah = MakeNode(MakeInfo("Umamah binti Hamzah", false, false));
+
+    /* -- Anak Al-Harits -- */
+    address abuSufyanBinHarits = MakeNode(MakeInfo("Abu Sufyan bin Al-Harits", true, false));
+    address rabiahBinHarits = MakeNode(MakeInfo("Rabi'ah bin Al-Harits", true, false));
+    address nawfal = MakeNode(MakeInfo("Nawfal", true, false));
+
+    /* -- Anak Abu Lahab -- */
+    address utbah = MakeNode(MakeInfo("Utbah", true, false));
+    address utaibah = MakeNode(MakeInfo("Utaibah", true, false));
+    address muattab = MakeNode(MakeInfo("Muattab", true, false));
+
+    /* -- Anak Az-Zubair bin Abdul Muthalib -- */
+    address abdullahBinAzZubair = MakeNode(MakeInfo("Abdullah bin Az-Zubair", true, false));
+
+    /* -- Anak Shafiyyah -- */
+    address zubairBinAwwam = MakeNode(MakeInfo("Zubair bin Awwam", true, true));
+
+    /* -- Anak Ummu Hakim Al-Baidha -- */
+    address arwaBintiKurayz = MakeNode(MakeInfo("Arwa binti Kurayz", false, true));
+
+    /* ================================================================
+     * GENERASI 3: Anak dari masing-masing G2
+     * ================================================================ */
+
+    /* -- Anak Muhammad SAW -- */
+    address alQasim = MakeNode(MakeInfo("Al-Qasim", true, false));
+    address abdullahBinNabi = MakeNode(MakeInfo("Abdullah bin Muhammad", true, false));
+    address ibrahim = MakeNode(MakeInfo("Ibrahim", true, false));
+    address zainabBintiNabi = MakeNode(MakeInfo("Zainab binti Muhammad", false, true));
+    address ruqayyah = MakeNode(MakeInfo("Ruqayyah", false, false));
+    address ummuKultsum = MakeNode(MakeInfo("Ummu Kultsum", false, false));
+    address fatimah = MakeNode(MakeInfo("Fatimah Az-Zahra", false, true));
+
+    /* -- Anak Ja'far bin Abu Thalib -- */
+    address abdullahBinJafar = MakeNode(MakeInfo("Abdullah bin Ja'far", true, false));
+    address muhammadBinJafar = MakeNode(MakeInfo("Muhammad bin Ja'far", true, false));
+    address aunBinJafar = MakeNode(MakeInfo("Aun bin Ja'far", true, false));
+
+    /* -- Anak Ali bin Abi Thalib -- */
+    address hasanBinAli = MakeNode(MakeInfo("Hasan bin Ali", true, false));
+    address husainBinAli = MakeNode(MakeInfo("Husain bin Ali", true, false));
+    address zainabBintiAli = MakeNode(MakeInfo("Zainab binti Ali", false, false));
+    address ummuKultsumAli = MakeNode(MakeInfo("Ummu Kultsum binti Ali", false, false));
+
+    /* -- Anak Abdullah bin Abbas -- */
+    address aliBinAbdullah = MakeNode(MakeInfo("Ali bin Abdullah", true, false));
+
+    /* -- Anak Abu Sufyan bin Al-Harits -- */
+    address jafarBinAbuSufyan = MakeNode(MakeInfo("Ja'far bin Abu Sufyan", true, false));
+
+    /* -- Anak Zubair bin Awwam (cucu Shafiyyah) -- */
+    address abdullahBinZubair = MakeNode(MakeInfo("Abdullah bin Zubair", true, false));
+    address musabBinZubair = MakeNode(MakeInfo("Mush'ab bin Zubair", true, false));
+    address urwahBinZubair = MakeNode(MakeInfo("Urwah bin Zubair", true, false));
+
+    /* -- Anak Arwa binti Kurayz (cucu Ummu Hakim) -- */
+    address utsmanBinAffan = MakeNode(MakeInfo("Utsman bin Affan", true, true));
+    address amnaBintiAffan = MakeNode(MakeInfo("Amna binti Affan", false, false));
+
+    /* ================================================================
+     * GENERASI 4: Anak Fatimah Az-Zahra
+     * ================================================================ */
+    address hasan = MakeNode(MakeInfo("Hasan", true, false));
+    address husain = MakeNode(MakeInfo("Husain", true, false));
+
+    /* ================================================================
+     * SUSUN RELASI PARENT → CHILD
+     * ================================================================ */
+
+    /* ROOT → G1 */
+    AddChild(abdulMuthalib, abdullah);
+    AddChild(abdulMuthalib, abuThalib);
+    AddChild(abdulMuthalib, alAbbas);
+    AddChild(abdulMuthalib, hamzah);
+    AddChild(abdulMuthalib, alHarits);
+    AddChild(abdulMuthalib, abuLahab);
+    AddChild(abdulMuthalib, azZubair);
+    AddChild(abdulMuthalib, shafiyyah);
+    AddChild(abdulMuthalib, ummuHakim);
+
+    /* G1 → G2 */
+    AddChild(abdullah, nabi);
+
+    AddChild(abuThalib, thalib);
+    AddChild(abuThalib, aqil);
+    AddChild(abuThalib, jafar);
+    AddChild(abuThalib, aliBinAbiThalib);
+
+    AddChild(alAbbas, alFadhl);
+    AddChild(alAbbas, abdullahBinAbbas);
+    AddChild(alAbbas, qutsam);
+    AddChild(alAbbas, maabad);
+
+    AddChild(hamzah, umamahBintiHamzah);
+
+    AddChild(alHarits, abuSufyanBinHarits);
+    AddChild(alHarits, rabiahBinHarits);
+    AddChild(alHarits, nawfal);
+
+    AddChild(abuLahab, utbah);
+    AddChild(abuLahab, utaibah);
+    AddChild(abuLahab, muattab);
+
+    AddChild(azZubair, abdullahBinAzZubair);
+
+    AddChild(shafiyyah, zubairBinAwwam);
+
+    AddChild(ummuHakim, arwaBintiKurayz);
+
+    /* G2 → G3 */
+    AddChild(nabi, alQasim);
+    AddChild(nabi, abdullahBinNabi);
+    AddChild(nabi, ibrahim);
+    AddChild(nabi, zainabBintiNabi);
+    AddChild(nabi, ruqayyah);
+    AddChild(nabi, ummuKultsum);
+    AddChild(nabi, fatimah);
+
+    AddChild(jafar, abdullahBinJafar);
+    AddChild(jafar, muhammadBinJafar);
+    AddChild(jafar, aunBinJafar);
+
+    AddChild(aliBinAbiThalib, hasanBinAli);
+    AddChild(aliBinAbiThalib, husainBinAli);
+    AddChild(aliBinAbiThalib, zainabBintiAli);
+    AddChild(aliBinAbiThalib, ummuKultsumAli);
+
+    AddChild(abdullahBinAbbas, aliBinAbdullah);
+
+    AddChild(abuSufyanBinHarits, jafarBinAbuSufyan);
+
+    AddChild(zubairBinAwwam, abdullahBinZubair);
+    AddChild(zubairBinAwwam, musabBinZubair);
+    AddChild(zubairBinAwwam, urwahBinZubair);
+
+    AddChild(arwaBintiKurayz, utsmanBinAffan);
+    AddChild(arwaBintiKurayz, amnaBintiAffan);
+
+    /* G3 → G4 (anak Fatimah) */
+    AddChild(fatimah, hasan);
+    AddChild(fatimah, husain);
+
+    return abdulMuthalib;
 }
 
-address Alokasi(infotype X)
-/* Mengalokasikan node baru dengan nilai X */
-/* Mengembalikan NULL jika gagal */
+// void CekHijabMahjub(address pewaris)
+// {
+    
+// }
+// void KalkulasiWarisan(address pewaris, float totalHarta)
+// {
+    
+// }
+static void CetakRingkasanRec(Tree T)
 {
-    address p = (address)malloc(sizeof(Node));
-    if (p != NULL)
-    {
-        p->info = X;
-        p->ps_fs = NULL;
-        p->ps_nb = NULL;
-        p->ps_pr = NULL;
-    }
-    return p;
-}
-
-/****************************************************/
-/*                MODUL VALIDASI                     */
-/****************************************************/
-
-int IsEmpty(Tree T)
-/* Mengembalikan 1 jika kosong, 0 jika tidak */
-{
-    return (T == NULL);
-}
-
-/****************************************************/
-/*                MODUL UPDATE                      */
-/****************************************************/
-
-void AddChild(address parent, address child)
-/* I.S. parent dan child sudah dialokasi */
-/* F.S. child menjadi anak paling kanan dari parent */
-{
-    if (parent == NULL || child == NULL)
+    if (T == NULL)
         return;
 
-    child->ps_pr = parent;
+    if (T->info.Aktif)
+    {
+        const char *status;
+        if (!T->info.Hidup)
+            status = "WAFAT (pewaris)";
+        else if (T->info.Mahjub)
+            status = "MAHJUB";
+        else
+            status = "BERHAK";
 
-    /* Jika parent belum punya anak, child langsung jadi first son */
-    if (parent->ps_fs == NULL)
-    {
-        parent->ps_fs = child;
+        printf("  %-25s | %-6s | %s\n",
+               T->info.Nama,
+               T->info.Gender ? "L" : "P",
+               status);
     }
-    else
+
+    CetakRingkasanRec(T->ps_fs);
+    CetakRingkasanRec(T->ps_nb);
+}
+
+void CetakRingkasanAhliWaris(Tree T)
+{
+    printf("\n=== RINGKASAN STATUS AHLI WARIS ===\n");
+    printf("  %-25s | Gender | Status\n", "Nama");
+    printf("  %s\n", "--------------------------------------------");
+    CetakRingkasanRec(T);
+}
+
+
+int main()
+{
+    Tree silsilah;
+    Create_tree(&silsilah);
+
+    printf("============================================\n");
+    printf("  SISTEM FARAIDH — NON BINARY TREE          \n");
+    printf("  Silsilah Keluarga Rasulullah SAW          \n");
+    printf("============================================\n\n");
+
+    silsilah = BangunSilsilah();
+    printf("     Total anggota : %d node\n", NbElmt(silsilah));
+    printf("     Kedalaman tree : %d level\n\n", Depth(silsilah));
+
+    address pewaris = NULL;
+    float totalHarta = 0.0f;
+    int sudahInput = 0; /* flag: apakah input sudah dilakukan */
+
+    int pilihan;
+    do
     {
-        /* Cari saudara paling akhir lalu tempelkan child di sana */
-        address curr = parent->ps_fs;
-        while (curr->ps_nb != NULL)
+        printf("\n============================================\n");
+        printf("  MENU UTAMA                               \n");
+        printf("============================================\n");
+        printf("  1. Tampilkan Struktur Pohon Keluarga\n");
+        printf("  2. Pilih Pewaris & Input Harta\n");
+        printf("  3. Input Status Anggota Keluarga\n");
+        printf("  4. Cek Hijab & Mahjub\n");
+        printf("  5. Tampilkan Ringkasan Ahli Waris\n");
+        printf("  6. Hitung & Tampilkan Pembagian Warisan\n");
+        printf("  7. Traversal Pohon\n");
+        printf("  0. Keluar\n");
+        printf("--------------------------------------------\n");
+
+        /* Tampilkan pewaris aktif jika sudah dipilih */
+        if (pewaris != NULL)
+            printf("  [Pewaris aktif : %s | Harta : Rp %.2f]\n",
+                   pewaris->info.Nama, totalHarta);
+
+        printf("Pilih menu: ");
+        if (scanf("%d", &pilihan) != 1)
         {
-            curr = curr->ps_nb;
+            while (getchar() != '\n')
+                ;
+            pilihan = -1;
         }
-        curr->ps_nb = child;
-    }
-}
 
-/****************************************************/
-/*                MODUL TRAVERSAL                   */
-/****************************************************/
-
-/*
- * PreOrder: node → semua anak (rekursif ke first son) → saudara
- * Urutan: cetak node, lalu PreOrder(fs), lalu PreOrder(nb)
- */
-void PreOrder(Tree T)
-{
-    if (T == NULL)
-        return;
-    printf("%c ", T->info); /* kunjungi node */
-    PreOrder(T->ps_fs);     /* kunjungi anak-anak */
-    PreOrder(T->ps_nb);     /* kunjungi saudara */
-}
-
-/*
- * InOrder (versi non-binary):
- * kunjungi anak pertama → cetak node → sisa saudara
- */
-void InOrder(Tree T)
-{
-    if (T == NULL)
-        return;
-    InOrder(T->ps_fs);      /* kunjungi anak pertama */
-    printf("%c ", T->info); /* kunjungi node */
-    InOrder(T->ps_nb);      /* kunjungi saudara */
-}
-
-/*
- * PostOrder: anak-anak → node → saudara
- */
-void PostOrder(Tree T)
-{
-    if (T == NULL)
-        return;
-    PostOrder(T->ps_fs);    /* kunjungi anak-anak */
-    printf("%c ", T->info); /* kunjungi node */
-    PostOrder(T->ps_nb);    /* kunjungi saudara */
-}
-
-/* ---- Queue sederhana untuk Level Order (BFS) ---- */
-#define QUEUE_MAX 256
-
-typedef struct
-{
-    address data[QUEUE_MAX];
-    int front, rear;
-} Queue;
-
-static void q_init(Queue *q) { q->front = q->rear = 0; }
-static int q_empty(Queue *q) { return q->front == q->rear; }
-static void q_push(Queue *q, address a)
-{
-    if ((q->rear + 1) % QUEUE_MAX == q->front)
-        return; /* penuh, abaikan */
-    q->data[q->rear] = a;
-    q->rear = (q->rear + 1) % QUEUE_MAX;
-}
-static address q_pop(Queue *q)
-{
-    address a = q->data[q->front];
-    q->front = (q->front + 1) % QUEUE_MAX;
-    return a;
-}
-
-void LevelOrder(Tree T)
-/* Traversal BFS: cetak node level demi level */
-{
-    if (T == NULL)
-        return;
-
-    Queue q;
-    q_init(&q);
-    q_push(&q, T);
-
-    while (!q_empty(&q))
-    {
-        address curr = q_pop(&q);
-        printf("%c ", curr->info);
-
-        /* Masukkan semua anak ke queue */
-        address child = curr->ps_fs;
-        while (child != NULL)
+        switch (pilihan)
         {
-            q_push(&q, child);
-            child = child->ps_nb;
+            /* -------------------------------------------------- */
+            case 1:
+                system("cls"); /* bersihkan layar (Windows) */
+                printf("\n=== STRUKTUR POHON KELUARGA ===\n");
+                PrintTree(silsilah);
+                break;
+            
+            case 2:
+                printf("\n=== DAFTAR ANGGOTA KELUARGA ===\n");
+                PrintTree(silsilah);
+                // CetakDaftarNama(silsilah, 0);
+
+                char namaPewaris[50];
+                printf("\nMasukkan nama pewaris (sesuai daftar): ");
+                while (getchar() != '\n')
+                    ;
+                if (fgets(namaPewaris, sizeof(namaPewaris), stdin) == NULL)
+                {
+                    printf("Gagal membaca input.\n");
+                    break;
+                }
+                namaPewaris[strcspn(namaPewaris, "\n")] = '\0';
+
+                address hasil = SearchPewaris(silsilah, namaPewaris);
+                if (hasil == NULL)
+                {
+                    printf("Nama '%s' tidak ditemukan.\n", namaPewaris);
+                    break;
+                }
+
+                /* Reset flag jika pewaris diganti */
+                if (pewaris != hasil)
+                    sudahInput = 0;
+                pewaris = hasil;
+
+                printf("Pewaris : %s (Level %d)\n",
+                    pewaris->info.Nama,
+                    Level(silsilah, pewaris->info));
+
+                printf("Masukkan total harta warisan (Rp): ");
+                if (scanf("%f", &totalHarta) != 1 || totalHarta <= 0)
+                {
+                    printf("Input harta tidak valid.\n");
+                    totalHarta = 0.0f;
+                    pewaris = NULL;
+                    break;
+                }
+                printf("Harta Rp %.2f berhasil disimpan.\n", totalHarta);
+                break;
+                
+            case 3:
+                if (pewaris == NULL)
+                {
+                    printf("Pilih pewaris terlebih dahulu (menu 2).\n");
+                    break;
+                }
+                AktivasiDanInput(pewaris);
+                break;
+
+            case 4:
+                if (pewaris == NULL)
+                {
+                    printf("Pilih pewaris terlebih dahulu (menu 2).\n");
+                    break;
+                }
+                CekHijabMahjub(pewaris);
+                break;
+
+            case 5:
+                if (pewaris == NULL)
+                {
+                    printf("Pilih pewaris terlebih dahulu (menu 2).\n");
+                    break;
+                }
+                /* Tampilkan ringkasan status */
+                CetakRingkasanAhliWaris(silsilah);
+                break;
+
+            case 6:
+                if (pewaris == NULL)
+                {
+                    printf("Pilih pewaris terlebih dahulu (menu 2).\n");
+                    break;
+                }
+                /* Hitung & tampilkan pembagian warisan */
+                KalkulasiWarisan(pewaris, totalHarta);
+                break;
+
+            case 7:
+                printf("\n=== TRAVERSAL POHON ===\n");
+                printf("1. Preorder\n");
+                printf("2. Inorder\n");
+                printf("3. Postorder\n");
+                printf("Pilih metode traversal: ");
+                int metode;
+                if (scanf("%d", &metode) != 1)
+                {
+                    while (getchar() != '\n')
+                        ;
+                    printf("Input tidak valid.\n");
+                    break;
+                }
+                switch (metode)
+                {
+                    case 1:
+                        printf("\nTraversal Preorder:\n");
+                        PreOrder(silsilah);
+                        printf("\n");
+                        break;
+                    case 2:
+                        printf("\nTraversal Inorder:\n");
+                        InOrder(silsilah);
+                        printf("\n");
+                        break;
+                    case 3:
+                        printf("\nTraversal Postorder:\n");
+                        PostOrder(silsilah);
+                        printf("\n");
+                        break;
+                    default:
+                        printf("Pilihan metode tidak valid.\n");
+                        break;
+                }
+                break;
+            
+            case 0:
+                printf("Terima kasih telah menggunakan program ini.\n");
+                break;
+
+            default:
+                printf("Pilihan tidak valid. Masukkan angka 0-7.\n");
+                break;
         }
-    }
-}
+    } while (pilihan != 0);
 
-/* ---- PrintTree helper ---- */
-static void PrintTreeRec(Tree T, int level)
-{
-    if (T == NULL)
-        return;
-    for (int i = 0; i < level; i++)
-        printf("  ");
-    printf("|-- %c\n", T->info);
-    PrintTreeRec(T->ps_fs, level + 1); /* cetak anak-anak */
-    PrintTreeRec(T->ps_nb, level);     /* cetak saudara pada level yang sama */
-}
-
-void PrintTree(Tree T)
-/* Menampilkan struktur tree secara visual */
-{
-    if (IsEmpty(T))
-    {
-        printf("(Tree kosong)\n");
-        return;
-    }
-    printf("%c\n", T->info);
-    PrintTreeRec(T->ps_fs, 1);
-}
-
-/****************************************************/
-/*                MODUL PENCARIAN                   */
-/****************************************************/
-
-int Search(Tree T, infotype X)
-/* Mengembalikan 1 jika X ditemukan, 0 jika tidak */
-{
-    if (T == NULL)
-        return 0;
-    if (T->info == X)
-        return 1;
-    /* Cari di anak-anak, lalu di saudara */
-    return Search(T->ps_fs, X) || Search(T->ps_nb, X);
-}
-
-/****************************************************/
-/*                MODUL ANALISIS TREE               */
-/****************************************************/
-
-int NbElmt(Tree T)
-/* Menghitung jumlah seluruh node */
-{
-    if (T == NULL)
-        return 0;
-    return 1 + NbElmt(T->ps_fs) + NbElmt(T->ps_nb);
-}
-
-int NbDaun(Tree T)
-/* Menghitung jumlah daun (node tanpa anak) */
-{
-    if (T == NULL)
-        return 0;
-    if (T->ps_fs == NULL) /* node ini adalah daun */
-        return 1 + NbDaun(T->ps_nb);
-    return NbDaun(T->ps_fs) + NbDaun(T->ps_nb);
-}
-
-int Max(int a, int b)
-{
-    return (a > b) ? a : b;
-}
-
-/*
- * Level: mengembalikan level node bernilai X
- * Root berada di level 1.
- * Mengembalikan -1 jika tidak ditemukan.
- */
-int Level(Tree T, infotype X)
-{
-    if (T == NULL)
-        return -1;
-    if (T->info == X)
-        return 1;
-
-    /* Cari di anak-anak (level bertambah 1) */
-    int lvl = Level(T->ps_fs, X);
-    if (lvl != -1)
-        return lvl + 1;
-
-    /* Cari di saudara (level tidak berubah) */
-    return Level(T->ps_nb, X);
-}
-
-/*
- * Depth: kedalaman (tinggi) tree.
- * Tree dengan satu node memiliki depth 1.
- */
-int Depth(Tree T)
-{
-    if (T == NULL)
-        return 0;
-
-    int depthChild = Depth(T->ps_fs);   /* kedalaman melalui anak */
-    int depthSibling = Depth(T->ps_nb); /* kedalaman melalui saudara */
-
-    /* Kedalaman melalui anak bertambah 1 dari node ini */
-    return Max(depthChild + 1, depthSibling);
-}
-
-/****************************************************/
-/*                MODUL DEALOKASI                   */
-/****************************************************/
-
-void DeAlokasi(Tree *T)
-/* Membebaskan seluruh memori tree secara post-order */
-{
-    if (*T == NULL)
-        return;
-    DeAlokasi(&((*T)->ps_fs)); /* bebaskan anak-anak */
-    DeAlokasi(&((*T)->ps_nb)); /* bebaskan saudara */
-    free(*T);
-    *T = NULL;
+    return 0;
 }

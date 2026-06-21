@@ -1,25 +1,45 @@
 #ifndef nbtrees_h
 #define nbtrees_h
 #include <stdio.h>
+#include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 /****************************************************/
 /*              DEFINISI TIPE DATA                   */
 /****************************************************/
+#define true 1
+#define false 0
 
 /* Tipe data untuk menyimpan informasi dalam node */
-typedef char infotype;
+// typedef char infotype;
 
 /* Tipe address adalah pointer ke Node */
 typedef struct tNode *address;
 
 /* Struktur Node untuk Non-Binary Tree Dinamis */
-typedef struct tNode
-{
-    infotype info; // Menyimpan data (misal: karakter/nama node)
-    address ps_fs; // Pointer ke anak pertama (first son)
-    address ps_nb; // Pointer ke saudara berikutnya (next brother)
-    address ps_pr; // Pointer ke parent (induk)
+/* Tipe data khusus untuk menyimpan informasi ahli waris */
+typedef struct {
+    char Nama[50];
+    bool Pasangan;
+    bool Gender;     /* true = laki-laki, false = perempuan */
+    float Bagian;
+    bool Aktif;
+    bool Mahjub;
+    bool Hidup;      /* true = masih hidup, false = sudah meninggal */
+} FaraidhData;
+
+typedef FaraidhData infotype;
+
+/* Tipe address adalah pointer ke Node */
+typedef struct tNode *address;
+
+/* Struktur Node memisahkan data (info) dengan pointer tree */
+typedef struct tNode {
+    infotype info;   /* Wadah penyimpan data ahli waris */
+    address ps_fs;   /* pointer ke first son (anak pertama) */
+    address ps_nb;   /* pointer ke next brother (saudara berikutnya) */
+    address ps_pr;   /* pointer ke parent (induk) */
 } Node;
 
 /* Tree direpresentasikan sebagai pointer ke root */
@@ -38,7 +58,9 @@ void Create_tree(Tree *T);
 address Alokasi(infotype X);
 /* Mengembalikan address node baru */
 /* Jika gagal, mengembalikan NULL */
-
+infotype MakeInfo(const char *nama, bool gender, bool pasangan);
+address MakeNode(infotype X);
+/* Membuat node baru dengan nilai X */
 /****************************************************/
 /*                MODUL VALIDASI                     */
 /****************************************************/
@@ -81,12 +103,15 @@ void PrintTree(Tree T);
 /* Menampilkan isi tree secara terstruktur */
 
 /****************************************************/
-/*                MODUL PENCARIAN                   */
+/*                MODUL STUDI KASUS                   */
 /****************************************************/
 
 /* Mencari node dengan nilai X */
-int Search(Tree T, infotype X);
-/* Mengembalikan 1 jika ditemukan, 0 jika tidak */
+address SearchPewaris(Tree T, const char *namaTarget);
+/* Mengembalikan address node jika ditemukan, NULL jika tidak */
+void AktivasiDanInput(address pewaris);
+void CekHijabMahjub(address pewaris);
+void KalkulasiWarisan(address pewaris, float totalHarta);
 
 /****************************************************/
 /*                MODUL ANALISIS TREE               */
