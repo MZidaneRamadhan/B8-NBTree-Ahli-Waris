@@ -371,6 +371,7 @@ int main()
                 printf("1. Preorder\n");
                 printf("2. Inorder\n");
                 printf("3. Postorder\n");
+                printf("4. Level Order\n");
                 printf("Pilih metode traversal: ");
                 int metode;
                 if (scanf("%d", &metode) != 1)
@@ -395,6 +396,11 @@ int main()
                     case 3:
                         printf("\nTraversal Postorder:\n");
                         PostOrder(silsilah);
+                        printf("\n");
+                        break;
+                    case 4:
+                        printf("\nTraversal Level Order:\n");
+                        LevelOrder(silsilah);
                         printf("\n");
                         break;
                     default:
