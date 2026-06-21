@@ -2,6 +2,7 @@
 #include "nbtrees.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 /****************************************************/
 /*                MODUL KONSTRUKTOR                  */
@@ -108,7 +109,7 @@ void PreOrder(Tree T)
 {
     if (T == NULL)
         return;
-    printf("%c ", T->info); /* kunjungi node */
+    printf("%s ", T->info.Nama); /* kunjungi node */
     PreOrder(T->ps_fs);     /* kunjungi anak-anak */
     PreOrder(T->ps_nb);     /* kunjungi saudara */
 }
@@ -122,7 +123,7 @@ void InOrder(Tree T)
     if (T == NULL)
         return;
     InOrder(T->ps_fs);      /* kunjungi anak pertama */
-    printf("%c ", T->info); /* kunjungi node */
+    printf("%c ", T->info.Nama); /* kunjungi node */
     InOrder(T->ps_nb);      /* kunjungi saudara */
 }
 
@@ -134,7 +135,7 @@ void PostOrder(Tree T)
     if (T == NULL)
         return;
     PostOrder(T->ps_fs);    /* kunjungi anak-anak */
-    printf("%c ", T->info); /* kunjungi node */
+    printf("%s ", T->info.Nama); /* kunjungi node */
     PostOrder(T->ps_nb);    /* kunjungi saudara */
 }
 
@@ -176,7 +177,7 @@ void LevelOrder(Tree T)
     while (!q_empty(&q))
     {
         address curr = q_pop(&q);
-        printf("%c ", curr->info);
+        printf("%s ", curr->info.Nama);
 
         /* Masukkan semua anak ke queue */
         address child = curr->ps_fs;

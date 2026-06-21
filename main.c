@@ -326,17 +326,85 @@ int main()
                     break;
                 }
                 printf("Harta Rp %.2f berhasil disimpan.\n", totalHarta);
-                /* 5. Input status keluarga */
+                break;
+                
+            case 3:
+                if (pewaris == NULL)
+                {
+                    printf("Pilih pewaris terlebih dahulu (menu 2).\n");
+                    break;
+                }
                 AktivasiDanInput(pewaris);
+                break;
 
-                /* 6. Pengecekan hijab & mahjub */
+            case 4:
+                if (pewaris == NULL)
+                {
+                    printf("Pilih pewaris terlebih dahulu (menu 2).\n");
+                    break;
+                }
                 CekHijabMahjub(pewaris);
-                /* 7. Tampilkan ringkasan status */
+                break;
+
+            case 5:
+                if (pewaris == NULL)
+                {
+                    printf("Pilih pewaris terlebih dahulu (menu 2).\n");
+                    break;
+                }
+                /* Tampilkan ringkasan status */
                 CetakRingkasanAhliWaris(silsilah);
+                break;
 
-                /* 8. Hitung & tampilkan pembagian warisan */
+            case 6:
+                if (pewaris == NULL)
+                {
+                    printf("Pilih pewaris terlebih dahulu (menu 2).\n");
+                    break;
+                }
+                /* Hitung & tampilkan pembagian warisan */
                 KalkulasiWarisan(pewaris, totalHarta);
+                break;
 
+            case 7:
+                printf("\n=== TRAVERSAL POHON ===\n");
+                printf("1. Preorder\n");
+                printf("2. Inorder\n");
+                printf("3. Postorder\n");
+                printf("Pilih metode traversal: ");
+                int metode;
+                if (scanf("%d", &metode) != 1)
+                {
+                    while (getchar() != '\n')
+                        ;
+                    printf("Input tidak valid.\n");
+                    break;
+                }
+                switch (metode)
+                {
+                    case 1:
+                        printf("\nTraversal Preorder:\n");
+                        PreOrder(silsilah);
+                        printf("\n");
+                        break;
+                    case 2:
+                        printf("\nTraversal Inorder:\n");
+                        InOrder(silsilah);
+                        printf("\n");
+                        break;
+                    case 3:
+                        printf("\nTraversal Postorder:\n");
+                        PostOrder(silsilah);
+                        printf("\n");
+                        break;
+                    default:
+                        printf("Pilihan metode tidak valid.\n");
+                        break;
+                }
+                break;
+            
+            case 0:
+                printf("Terima kasih telah menggunakan program ini.\n");
                 break;
 
             default:
